@@ -13,7 +13,8 @@ class MainActivity : BaseActivity(), TabContainerFragment.FragmentChangedListene
         const val KEY_CURRENT_TAB_TAG = "KEY_CURRENT_TAB_TAG"
     }
 
-    private lateinit var bottomNavigationView: BottomNavigationView
+    private val bottomNavigationView by lazy { findViewById<BottomNavigationView>(R.id.bottom_nav_view) }
+
     private val tabContainerMap = mutableMapOf<Tab, TabContainerFragment>()
     private var currentContainerFragment: TabContainerFragment? = null
     private var currentTab: Tab? = null
@@ -22,11 +23,9 @@ class MainActivity : BaseActivity(), TabContainerFragment.FragmentChangedListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        bottomNavigationView = findViewById(R.id.bottom_nav_view)
-        bottomNavigationView.selectedItemId = R.id.navigation_home
-
         initFragmentContainer(savedInstanceState)
 
+        bottomNavigationView.selectedItemId = R.id.navigation_home
         bottomNavigationView.setOnNavigationItemSelectedListener {
             return@setOnNavigationItemSelectedListener Tab.values()
                 .firstOrNull { tab -> it.itemId == tab.menuId }
