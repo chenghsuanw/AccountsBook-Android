@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AccountsBook</string>
+
+    <string name="navigation_title_account">帳戶</string>
+    <string name="navigation_title_budget">預算</string>
+    <string name="navigation_title_home">紀錄</string>
+    <string name="navigation_title_statistic">統計</string>
+    <string name="navigation_title_setting">設定</string>
+</resources>
