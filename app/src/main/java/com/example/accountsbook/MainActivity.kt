@@ -37,8 +37,15 @@ class MainActivity : BaseActivity(), TabContainerFragment.FragmentChangedListene
         }
     }
 
-    override fun onFragmentChanged(fragment: BaseFragment) {
+    override fun onBackPressed() {
+        if (currentContainerFragment?.onBackPressed() != true) {
+            finish()
+        }
+    }
 
+    override fun onFragmentChanged(fragment: BaseFragment) {
+        val toolbarConfig = fragment.toolbarConfig ?: return
+        setupToolbar(toolbarConfig)
     }
 
     private fun initFragmentContainer(savedInstanceState: Bundle?) {

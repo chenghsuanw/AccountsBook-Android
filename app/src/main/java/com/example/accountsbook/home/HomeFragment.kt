@@ -6,12 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.accountsbook.BaseFragment
 import com.example.accountsbook.R
+import com.example.accountsbook.navigation.ToolbarConfig
 
 class HomeFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = HomeFragment()
     }
+
+    override val toolbarConfig: ToolbarConfig?
+        get() = ToolbarConfig(
+            title = "薪資帳戶"
+        )
 
     override fun onCreateView(
         inflater: LayoutInflater,
