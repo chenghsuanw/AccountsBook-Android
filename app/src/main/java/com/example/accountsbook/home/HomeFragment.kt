@@ -19,6 +19,7 @@ import com.example.accountsbook.BaseFragment
 import com.example.accountsbook.R
 import com.example.accountsbook.navigation.Navigator
 import com.example.accountsbook.navigation.ToolbarConfig
+import com.example.accountsbook.home.recordForm.RecordFormFragment
 import com.example.accountsbook.util.color
 import com.example.accountsbook.util.dp
 import com.example.accountsbook.util.milliToDateString
@@ -68,7 +69,7 @@ class HomeFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = RecordListAdapter()
             val divider = DividerDecoration(
-                dividerColor = R.color.gray.color(),
+                dividerColor = R.color.bg_gray.color(),
                 dividerHeight = 1.dp(),
                 paddingStart = 32.dp()
             )
@@ -111,7 +112,7 @@ class HomeFragment : BaseFragment() {
             R.id.menu_home_add -> {
                 (activity as? Navigator)?.execute(
                     Navigator.Command.PushFragment.Builder(
-                        EditRecordFragment.newInstance()
+                        RecordFormFragment.newInstance()
                     ).build()
                 )
             }

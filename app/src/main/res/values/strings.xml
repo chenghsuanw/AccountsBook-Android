@@ -8,4 +8,12 @@
     <string name="navigation_title_setting">設定</string>
 
     <string name="menu_add">新增紀錄</string>
+
+    <string name="record_form_type">收支</string>
+    <string name="record_form_type_income">收入</string>
+    <string name="record_form_type_outcome">支出</string>
+    <string name="record_form_amount">金額</string>
+    <string name="record_form_amount_input_hint">金額</string>
+    <string name="record_form_description">備註</string>
+    <string name="record_form_description_input_hint">請輸入</string>
 </resources>
