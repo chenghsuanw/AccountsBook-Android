@@ -18,8 +18,8 @@ data class RecordEntity(
     @ColumnInfo(name = "date") val date: String,
     @ColumnInfo(name = "isIncome") val isIncome: Boolean,
     @ColumnInfo(name = "amount") val amount: Int,
-    @ColumnInfo(name = "category_icon") @DrawableRes val categoryIcon: Int,
-    @ColumnInfo(name = "category_name") val categoryName: String,
+    @ColumnInfo(name = "icon") @DrawableRes val icon: Int,
+    @ColumnInfo(name = "category") val category: String,
     @ColumnInfo(name = "description") val description: String
 )
 
