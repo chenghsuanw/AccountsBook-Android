@@ -2,6 +2,9 @@ package com.example.accountsbook.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
@@ -14,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.accountsbook.BaseFragment
 import com.example.accountsbook.R
+import com.example.accountsbook.navigation.Navigator
 import com.example.accountsbook.navigation.ToolbarConfig
 import com.example.accountsbook.util.color
 import com.example.accountsbook.util.dp
@@ -95,5 +99,23 @@ class HomeFragment : BaseFragment() {
         super.onResume()
 
         viewModel.updateRecordsOnDate(calendarView.date.milliToDateString())
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.fragment_home, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_home_add -> {
+                (activity as? Navigator)?.execute(
+                    Navigator.Command.PushFragment.Builder(
+                        EditRecordFragment.newInstance()
+                    ).build()
+                )
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

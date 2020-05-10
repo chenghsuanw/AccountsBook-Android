@@ -6,4 +6,6 @@
     <string name="navigation_title_home">紀錄</string>
     <string name="navigation_title_statistic">統計</string>
     <string name="navigation_title_setting">設定</string>
+
+    <string name="menu_add">新增紀錄</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.accountsbook
 
 import android.os.Bundle
+import android.view.MenuItem
 import com.example.accountsbook.navigation.Navigator
 import com.example.accountsbook.navigation.Tab
 import com.example.accountsbook.navigation.TabContainerFragment
@@ -39,6 +40,18 @@ class MainActivity : BaseActivity(), TabContainerFragment.FragmentChangedListene
     override fun onBackPressed() {
         if (currentContainerFragment?.onBackPressed() != true) {
             finish()
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            android.R.id.home -> {
+                if (currentContainerFragment?.canPopFragment() == true) {
+                    onBackPressed()
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
