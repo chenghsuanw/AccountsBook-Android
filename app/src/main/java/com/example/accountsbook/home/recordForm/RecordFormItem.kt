@@ -9,6 +9,7 @@ sealed class RecordFormItem {
         private val mapping =
             mapOf(
                 Receipt::class.java to 0,
+                Category::class.java to 1,
                 Confirm::class.java to 99
             )
 
@@ -28,6 +29,11 @@ sealed class RecordFormItem {
         val isIncome: Boolean? = false,
         val amount: Int?,
         val description: String?
+    ) : RecordFormItem()
+
+    data class Category(
+        // TODO: pass category list
+        val a: String? = null
     ) : RecordFormItem()
 
     data class Confirm(val text: String) : RecordFormItem()

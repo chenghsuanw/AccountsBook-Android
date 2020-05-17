@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="popupMenuStyle">@style/PopupMenu</item>
     </style>
 
     <style name="BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
@@ -14,6 +15,11 @@
         <item name="itemIconTint">@color/bottom_navigation_icon_color</item>
         <item name="itemTextColor">@color/bottom_navigation_icon_color</item>
         <item name="labelVisibilityMode">labeled</item>
+    </style>
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:dropDownVerticalOffset">8dp</item>
+        <item name="android:popupBackground">@color/white</item>
     </style>
 
 </resources>

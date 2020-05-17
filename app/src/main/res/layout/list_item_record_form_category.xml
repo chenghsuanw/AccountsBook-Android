@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="32dp"
+    android:paddingEnd="32dp">
+
+    <ImageView
+        android:id="@+id/iv_list_item_record_form_category_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/ic_category"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="@string/record_form_category"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_list_item_record_form_category_icon"
+        app:layout_constraintStart_toEndOf="@id/iv_list_item_record_form_category_icon"
+        app:layout_constraintTop_toTopOf="@id/iv_list_item_record_form_category_icon" />
+
+    <ImageView
+        android:id="@+id/iv_list_item_record_form_category_more"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_more"
+        app:layout_constraintBottom_toBottomOf="@id/iv_list_item_record_form_category_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_list_item_record_form_category_icon" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="0dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_list_item_record_form_category_icon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

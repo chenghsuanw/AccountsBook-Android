@@ -3,12 +3,14 @@ package com.example.accountsbook.home.recordForm
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.accountsbook.R
+import com.example.accountsbook.home.recordForm.delegate.CategoryDelegate
 import com.example.accountsbook.home.recordForm.delegate.ConfirmDelegate
 import com.example.accountsbook.home.recordForm.delegate.ReceiptDelegate
 import com.example.accountsbook.home.recordForm.receipt.ReceiptAdapter
@@ -17,9 +19,10 @@ import com.example.accountsbook.util.color
 import com.example.accountsbook.util.dp
 import com.example.accountsbook.view.DividerDecoration
 
-class RecordFormAdapter : ListAdapter<RecordFormItem, RecyclerView.ViewHolder>(
-    diffCallback
-) {
+class RecordFormAdapter(listener: EventListener?) :
+    ListAdapter<RecordFormItem, RecyclerView.ViewHolder>(
+        diffCallback
+    ) {
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<RecordFormItem>() {
@@ -61,11 +64,15 @@ class RecordFormAdapter : ListAdapter<RecordFormItem, RecyclerView.ViewHolder>(
         fun onBindViewHolder(item: T, holder: RecyclerView.ViewHolder)
     }
 
+    interface EventListener : CategoryViewHolder.EventListener
+
     private val receiptDelegate = ReceiptDelegate()
+    private val categoryDelegate = CategoryDelegate(listener)
     private val confirmDelegate = ConfirmDelegate()
 
     private val delegates = mapOf(
         RecordFormItem.Receipt::class.java to receiptDelegate,
+        RecordFormItem.Category::class.java to categoryDelegate,
         RecordFormItem.Confirm::class.java to confirmDelegate
     )
 
@@ -117,6 +124,27 @@ class RecordFormAdapter : ListAdapter<RecordFormItem, RecyclerView.ViewHolder>(
                     ReceiptItem.Description(item.description)
                 )
             )
+        }
+    }
+
+    class CategoryViewHolder(itemView: View, listener: EventListener?) :
+        RecyclerView.ViewHolder(itemView) {
+
+        interface EventListener {
+            fun onMoreIconClicked(view: View)
+        }
+
+        private val moreIv: ImageView =
+            itemView.findViewById(R.id.iv_list_item_record_form_category_more)
+
+        init {
+            moreIv.setOnClickListener {
+                listener?.onMoreIconClicked(it)
+            }
+        }
+
+        fun bindView(item: RecordFormItem.Category) {
+
         }
     }
 
