@@ -1,7 +1,5 @@
 package com.example.accountsbook.home.recordForm
 
-import androidx.core.util.ObjectsCompat
-
 sealed class RecordFormItem {
 
     companion object {
@@ -11,7 +9,7 @@ sealed class RecordFormItem {
         private val mapping =
             mapOf(
                 Receipt::class.java to 0,
-                ConfirmButton::class.java to 99
+                Confirm::class.java to 99
             )
 
         fun getClazzFromViewType(viewType: Int): Class<out RecordFormItem>? {
@@ -32,13 +30,5 @@ sealed class RecordFormItem {
         val description: String?
     ) : RecordFormItem()
 
-    object ConfirmButton : RecordFormItem() {
-        override fun equals(other: Any?): Boolean {
-            return other is ConfirmButton
-        }
-
-        override fun hashCode(): Int {
-            return ObjectsCompat.hash(this)
-        }
-    }
+    data class Confirm(val text: String) : RecordFormItem()
 }

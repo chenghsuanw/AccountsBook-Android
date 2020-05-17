@@ -2,12 +2,14 @@ package com.example.accountsbook.home.recordForm
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.accountsbook.R
+import com.example.accountsbook.home.recordForm.delegate.ConfirmDelegate
 import com.example.accountsbook.home.recordForm.delegate.ReceiptDelegate
 import com.example.accountsbook.home.recordForm.receipt.ReceiptAdapter
 import com.example.accountsbook.home.recordForm.receipt.ReceiptItem
@@ -60,9 +62,11 @@ class RecordFormAdapter : ListAdapter<RecordFormItem, RecyclerView.ViewHolder>(
     }
 
     private val receiptDelegate = ReceiptDelegate()
+    private val confirmDelegate = ConfirmDelegate()
 
     private val delegates = mapOf(
-        RecordFormItem.Receipt::class.java to receiptDelegate
+        RecordFormItem.Receipt::class.java to receiptDelegate,
+        RecordFormItem.Confirm::class.java to confirmDelegate
     )
 
     override fun getItemViewType(position: Int): Int {
@@ -86,7 +90,8 @@ class RecordFormAdapter : ListAdapter<RecordFormItem, RecyclerView.ViewHolder>(
 
     class ReceiptViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val dateTv: TextView = itemView.findViewById(R.id.tv_list_item_record_form_receipt_date)
+        private val dateTv: TextView =
+            itemView.findViewById(R.id.tv_list_item_record_form_receipt_date)
         private val recyclerView: RecyclerView =
             itemView.findViewById(R.id.rv_list_item_record_form_receipt)
 
@@ -112,6 +117,21 @@ class RecordFormAdapter : ListAdapter<RecordFormItem, RecyclerView.ViewHolder>(
                     ReceiptItem.Description(item.description)
                 )
             )
+        }
+    }
+
+    class ConfirmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val button: Button = itemView.findViewById(R.id.btn_list_item_record_form_confirm)
+
+        init {
+            button.setOnClickListener {
+                // TODO: implement
+            }
+        }
+
+        fun bindView(item: RecordFormItem.Confirm) {
+            button.text = item.text
         }
     }
 }

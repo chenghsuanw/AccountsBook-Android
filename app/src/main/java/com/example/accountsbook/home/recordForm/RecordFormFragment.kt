@@ -44,8 +44,7 @@ class RecordFormFragment : BaseFragment() {
             adapter = RecordFormAdapter()
             val divider = DividerDecoration(
                 dividerColor = R.color.bg_gray.color(),
-                dividerHeight = 4.dp(),
-                paddingStart = 32.dp()
+                dividerHeight = 4.dp()
             )
             addItemDecoration(divider)
         }
