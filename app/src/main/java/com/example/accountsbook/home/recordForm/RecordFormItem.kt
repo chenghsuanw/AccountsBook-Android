@@ -1,5 +1,7 @@
 package com.example.accountsbook.home.recordForm
 
+import com.example.accountsbook.database.CategoryEntity
+
 sealed class RecordFormItem {
 
     companion object {
@@ -32,8 +34,7 @@ sealed class RecordFormItem {
     ) : RecordFormItem()
 
     data class Category(
-        // TODO: pass category list
-        val a: String? = null
+        val categories: List<CategoryEntity>
     ) : RecordFormItem()
 
     data class Confirm(val text: String) : RecordFormItem()
