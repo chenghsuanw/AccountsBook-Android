@@ -9,7 +9,9 @@ import androidx.viewpager.widget.PagerAdapter
 import com.example.accountsbook.R
 import com.example.accountsbook.database.CategoryEntity
 
-class CategoryPagerAdapter : PagerAdapter() {
+class CategoryPagerAdapter(
+    private val listener: CategoryListAdapter.EventListener?
+) : PagerAdapter() {
 
     private val categoryPages: MutableList<CategoryPage> = mutableListOf()
 
@@ -25,7 +27,7 @@ class CategoryPagerAdapter : PagerAdapter() {
         val view = LayoutInflater.from(container.context)
             .inflate(R.layout.list_item_category_page, container, false)
         view.findViewById<RecyclerView>(R.id.rv_list_item_category_page).apply {
-            adapter = CategoryListAdapter().apply {
+            adapter = CategoryListAdapter(listener).apply {
                 submitList(categoryPages[position].categories)
             }
             layoutManager = GridLayoutManager(context, 5)

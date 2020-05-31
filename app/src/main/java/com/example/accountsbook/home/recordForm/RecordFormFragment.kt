@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.accountsbook.BaseFragment
 import com.example.accountsbook.R
+import com.example.accountsbook.database.CategoryEntity
 import com.example.accountsbook.navigation.ToolbarConfig
 import com.example.accountsbook.util.color
 import com.example.accountsbook.util.dp
@@ -54,16 +55,6 @@ class RecordFormFragment : BaseFragment(), RecordFormAdapter.EventListener,
         }
     }
 
-    override fun onMoreIconClicked(view: View) {
-        val context = context ?: return
-        PopupMenu(context, view).apply {
-            setOnMenuItemClickListener(this@RecordFormFragment)
-            gravity = Gravity.END
-            inflate(R.menu.category)
-            show()
-        }
-    }
-
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.menu_category_edit -> {
@@ -80,5 +71,35 @@ class RecordFormFragment : BaseFragment(), RecordFormAdapter.EventListener,
             }
             else -> false
         }
+    }
+
+    override fun onMoreIconClicked(view: View) {
+        val context = context ?: return
+        PopupMenu(context, view).apply {
+            setOnMenuItemClickListener(this@RecordFormFragment)
+            gravity = Gravity.END
+            inflate(R.menu.category)
+            show()
+        }
+    }
+
+    override fun onTypeChanged(isIncome: Boolean) {
+        // TODO: implement
+    }
+
+    override fun onAmountChanged(amount: Int) {
+        // TODO: implement
+    }
+
+    override fun onDescriptionDetailClicked() {
+        // TODO: implement
+    }
+
+    override fun onCategoryChanged(category: CategoryEntity) {
+        // TODO: implement
+    }
+
+    override fun onConfirmClicked() {
+        // TODO: implement
     }
 }

@@ -20,10 +20,9 @@ import com.example.accountsbook.util.color
 import com.example.accountsbook.util.dp
 import com.example.accountsbook.view.DividerDecoration
 
-class RecordFormAdapter(listener: EventListener?) :
-    ListAdapter<RecordFormItem, RecyclerView.ViewHolder>(
-        diffCallback
-    ) {
+class RecordFormAdapter(
+    listener: EventListener?
+) : ListAdapter<RecordFormItem, RecyclerView.ViewHolder>(diffCallback) {
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<RecordFormItem>() {
@@ -67,11 +66,12 @@ class RecordFormAdapter(listener: EventListener?) :
         fun onBindViewHolder(item: T, holder: RecyclerView.ViewHolder)
     }
 
-    interface EventListener : CategoryViewHolder.EventListener
+    interface EventListener : ReceiptAdapter.EventListener, CategoryViewHolder.EventListener,
+        ConfirmViewHolder.EventListener
 
-    private val receiptDelegate = ReceiptDelegate()
+    private val receiptDelegate = ReceiptDelegate(listener)
     private val categoryDelegate = CategoryDelegate(listener)
-    private val confirmDelegate = ConfirmDelegate()
+    private val confirmDelegate = ConfirmDelegate(listener)
 
     private val delegates = mapOf(
         RecordFormItem.Receipt::class.java to receiptDelegate,
@@ -98,7 +98,9 @@ class RecordFormAdapter(listener: EventListener?) :
         delegates[clazz]?.onBindViewHolder(getItem(position), holder, clazz)
     }
 
-    class ReceiptViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ReceiptViewHolder(
+        itemView: View, listener: ReceiptAdapter.EventListener?
+    ) : RecyclerView.ViewHolder(itemView) {
 
         private val dateTv: TextView =
             itemView.findViewById(R.id.tv_list_item_record_form_receipt_date)
@@ -108,7 +110,7 @@ class RecordFormAdapter(listener: EventListener?) :
         init {
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(context)
-                adapter = ReceiptAdapter()
+                adapter = ReceiptAdapter(listener)
                 val divider = DividerDecoration(
                     dividerColor = R.color.bg_gray.color(),
                     dividerHeight = 1.dp(),
@@ -130,10 +132,11 @@ class RecordFormAdapter(listener: EventListener?) :
         }
     }
 
-    class CategoryViewHolder(itemView: View, listener: EventListener?) :
-        RecyclerView.ViewHolder(itemView) {
+    class CategoryViewHolder(
+        itemView: View, listener: EventListener?
+    ) : RecyclerView.ViewHolder(itemView) {
 
-        interface EventListener {
+        interface EventListener : CategoryListAdapter.EventListener {
             fun onMoreIconClicked(view: View)
         }
 
@@ -146,7 +149,7 @@ class RecordFormAdapter(listener: EventListener?) :
             moreIv.setOnClickListener {
                 listener?.onMoreIconClicked(it)
             }
-            viewPager.adapter = CategoryPagerAdapter()
+            viewPager.adapter = CategoryPagerAdapter(listener)
         }
 
         fun bindView(item: RecordFormItem.Category) {
@@ -156,13 +159,19 @@ class RecordFormAdapter(listener: EventListener?) :
         }
     }
 
-    class ConfirmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ConfirmViewHolder(
+        itemView: View, listener: EventListener?
+    ) : RecyclerView.ViewHolder(itemView) {
+
+        interface EventListener {
+            fun onConfirmClicked()
+        }
 
         private val button: Button = itemView.findViewById(R.id.btn_list_item_record_form_confirm)
 
         init {
             button.setOnClickListener {
-                // TODO: implement
+                listener?.onConfirmClicked()
             }
         }
 

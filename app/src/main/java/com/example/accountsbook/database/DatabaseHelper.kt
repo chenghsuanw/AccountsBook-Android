@@ -45,16 +45,16 @@ object DatabaseHelper {
 
     private fun setDefaultCategories() {
         val defaultCategories = listOf(
-            CategoryEntity("食物", R.drawable.ic_food),
-            CategoryEntity("購物", R.drawable.ic_shopping),
-            CategoryEntity("住宅", R.drawable.ic_house),
-            CategoryEntity("交通", R.drawable.ic_transport),
-            CategoryEntity("教育", R.drawable.ic_educate),
-            CategoryEntity("娛樂", R.drawable.ic_fun),
-            CategoryEntity("旅行", R.drawable.ic_travel),
-            CategoryEntity("醫療", R.drawable.ic_hospital),
-            CategoryEntity("投資", R.drawable.ic_invest),
-            CategoryEntity("轉帳", R.drawable.ic_transfer)
+            CategoryEntity("食物", R.drawable.category_food),
+            CategoryEntity("購物", R.drawable.category_shopping),
+            CategoryEntity("住宅", R.drawable.category_house),
+            CategoryEntity("交通", R.drawable.category_transport),
+            CategoryEntity("教育", R.drawable.category_educate),
+            CategoryEntity("娛樂", R.drawable.category_fun),
+            CategoryEntity("旅行", R.drawable.category_travel),
+            CategoryEntity("醫療", R.drawable.category_hospital),
+            CategoryEntity("投資", R.drawable.category_invest),
+            CategoryEntity("轉帳", R.drawable.category_transfer)
         )
         defaultCategories.forEach {
             GlobalScope.launch {

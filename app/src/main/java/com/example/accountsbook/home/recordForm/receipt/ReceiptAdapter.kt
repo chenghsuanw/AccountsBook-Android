@@ -1,5 +1,6 @@
 package com.example.accountsbook.home.recordForm.receipt
 
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +11,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.accountsbook.R
+import com.example.accountsbook.view.SimpleTextWatcher
 import com.google.android.material.chip.ChipGroup
 
-class ReceiptAdapter : ListAdapter<ReceiptItem, RecyclerView.ViewHolder>(diffCallback) {
+class ReceiptAdapter(
+    private val listener: EventListener?
+) : ListAdapter<ReceiptItem, RecyclerView.ViewHolder>(diffCallback) {
+
+    interface EventListener : TypeViewHolder.EventListener, AmountViewHolder.EventListener,
+        DescriptionViewHolder.EventListener
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<ReceiptItem>() {
@@ -38,7 +45,7 @@ class ReceiptAdapter : ListAdapter<ReceiptItem, RecyclerView.ViewHolder>(diffCal
                         R.layout.list_item_receipt_type,
                         parent,
                         false
-                    )
+                    ), listener
                 )
             }
             ReceiptItem.Amount::class.java -> {
@@ -47,7 +54,7 @@ class ReceiptAdapter : ListAdapter<ReceiptItem, RecyclerView.ViewHolder>(diffCal
                         R.layout.list_item_receipt_amount,
                         parent,
                         false
-                    )
+                    ), listener
                 )
             }
             ReceiptItem.Description::class.java -> {
@@ -56,7 +63,7 @@ class ReceiptAdapter : ListAdapter<ReceiptItem, RecyclerView.ViewHolder>(diffCal
                         R.layout.list_item_receipt_description,
                         parent,
                         false
-                    )
+                    ), listener
                 )
             }
             else -> error("unknown type")
@@ -80,10 +87,22 @@ class ReceiptAdapter : ListAdapter<ReceiptItem, RecyclerView.ViewHolder>(diffCal
         }
     }
 
-    class TypeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class TypeViewHolder(
+        itemView: View, listener: EventListener?
+    ) : RecyclerView.ViewHolder(itemView) {
+
+        interface EventListener {
+            fun onTypeChanged(isIncome: Boolean)
+        }
 
         private val typeChipGroup: ChipGroup =
             itemView.findViewById(R.id.chip_group_list_item_receipt_type)
+
+        init {
+            typeChipGroup.setOnCheckedChangeListener { _, checkedId ->
+                listener?.onTypeChanged(isIncome = checkedId == R.id.type_income)
+            }
+        }
 
         fun bindView(item: ReceiptItem.Type) {
             typeChipGroup.check(
@@ -93,10 +112,24 @@ class ReceiptAdapter : ListAdapter<ReceiptItem, RecyclerView.ViewHolder>(diffCal
         }
     }
 
-    class AmountViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class AmountViewHolder(
+        itemView: View, listener: EventListener?
+    ) : RecyclerView.ViewHolder(itemView) {
+
+        interface EventListener {
+            fun onAmountChanged(amount: Int)
+        }
 
         private val amountEt: EditText =
             itemView.findViewById(R.id.et_list_item_receipt_description)
+
+        init {
+            amountEt.addTextChangedListener(object : SimpleTextWatcher() {
+                override fun afterTextChanged(s: Editable?) {
+                    listener?.onAmountChanged(s.toString().toInt())
+                }
+            })
+        }
 
         fun bindView(item: ReceiptItem.Amount) {
             item.amount?.let {
@@ -105,7 +138,13 @@ class ReceiptAdapter : ListAdapter<ReceiptItem, RecyclerView.ViewHolder>(diffCal
         }
     }
 
-    class DescriptionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class DescriptionViewHolder(
+        itemView: View, listener: EventListener?
+    ) : RecyclerView.ViewHolder(itemView) {
+
+        interface EventListener {
+            fun onDescriptionDetailClicked()
+        }
 
         private val descriptionTv: TextView =
             itemView.findViewById(R.id.tv_list_item_receipt_description)
@@ -114,7 +153,7 @@ class ReceiptAdapter : ListAdapter<ReceiptItem, RecyclerView.ViewHolder>(diffCal
 
         init {
             detailIv.setOnClickListener {
-                // TODO: implement
+                listener?.onDescriptionDetailClicked()
             }
         }
 

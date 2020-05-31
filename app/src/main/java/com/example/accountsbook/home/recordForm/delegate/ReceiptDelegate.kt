@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.accountsbook.R
 import com.example.accountsbook.home.recordForm.RecordFormAdapter
 import com.example.accountsbook.home.recordForm.RecordFormItem
+import com.example.accountsbook.home.recordForm.receipt.ReceiptAdapter
 
-class ReceiptDelegate : RecordFormAdapter.TypedDelegate<RecordFormItem.Receipt> {
+class ReceiptDelegate(
+    private val listener: ReceiptAdapter.EventListener?
+) : RecordFormAdapter.TypedDelegate<RecordFormItem.Receipt> {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return RecordFormAdapter.ReceiptViewHolder(
@@ -15,7 +18,7 @@ class ReceiptDelegate : RecordFormAdapter.TypedDelegate<RecordFormItem.Receipt> 
                 R.layout.list_item_record_form_receipt,
                 parent,
                 false
-            )
+            ), listener
         )
     }
 
