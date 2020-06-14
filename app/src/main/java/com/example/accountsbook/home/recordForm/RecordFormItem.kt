@@ -34,7 +34,8 @@ sealed class RecordFormItem {
     ) : RecordFormItem()
 
     data class Category(
-        val categories: List<CategoryEntity>
+        val categories: List<CategoryEntity>,
+        val selectedCategory: CategoryEntity
     ) : RecordFormItem()
 
     data class Confirm(val text: String) : RecordFormItem()

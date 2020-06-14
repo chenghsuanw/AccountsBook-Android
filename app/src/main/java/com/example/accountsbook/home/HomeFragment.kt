@@ -112,7 +112,9 @@ class HomeFragment : BaseFragment() {
             R.id.menu_home_add -> {
                 (activity as? Navigator)?.execute(
                     Navigator.Command.PushFragment.Builder(
-                        RecordFormFragment.newInstance()
+                        RecordFormFragment.newInstance(
+                            date = calendarView.date.milliToDateString()
+                        )
                     ).build()
                 )
             }

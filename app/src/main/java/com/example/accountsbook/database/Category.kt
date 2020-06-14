@@ -11,12 +11,13 @@ import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.RoomDatabase
+import java.io.Serializable
 
 @Entity(tableName = "categories")
 data class CategoryEntity(
     @PrimaryKey @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "icon") @DrawableRes val icon: Int
-)
+) : Serializable
 
 @Dao
 interface CategoryDao {

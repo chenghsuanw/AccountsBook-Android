@@ -37,7 +37,7 @@ class CategoryListAdapter(
         }
     }
 
-    private var focusedPosition = 0
+    var focusedPosition = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryEntityViewHolder {
         return CategoryEntityViewHolder(

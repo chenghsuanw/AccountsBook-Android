@@ -153,7 +153,11 @@ class RecordFormAdapter(
         }
 
         fun bindView(item: RecordFormItem.Category) {
-            (recyclerView.adapter as CategoryListAdapter).submitList(item.categories)
+            (recyclerView.adapter as CategoryListAdapter).apply {
+                val selectedIndex = item.categories.indexOf(item.selectedCategory)
+                focusedPosition = selectedIndex
+                submitList(item.categories)
+            }
         }
     }
 
