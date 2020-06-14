@@ -6,10 +6,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import com.example.accountsbook.R
 import com.example.accountsbook.home.recordForm.delegate.CategoryDelegate
 import com.example.accountsbook.home.recordForm.delegate.ConfirmDelegate
@@ -40,8 +40,6 @@ class RecordFormAdapter(
                 return oldItem == newItem
             }
         }
-
-        private const val CATEGORY_COUNT_PER_PAGE = 10
     }
 
     interface TypedDelegate<T : RecordFormItem> {
@@ -142,20 +140,20 @@ class RecordFormAdapter(
 
         private val moreIv: ImageView =
             itemView.findViewById(R.id.iv_list_item_record_form_category_more)
-        private val viewPager: ViewPager =
-            itemView.findViewById(R.id.vp_list_item_record_form_category)
+        private val recyclerView: RecyclerView = itemView.findViewById(R.id.rv_list_item_record_form_category)
 
         init {
             moreIv.setOnClickListener {
                 listener?.onMoreIconClicked(it)
             }
-            viewPager.adapter = CategoryPagerAdapter(listener)
+            recyclerView.apply {
+                layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
+                adapter = CategoryListAdapter(listener)
+            }
         }
 
         fun bindView(item: RecordFormItem.Category) {
-            val categories = item.categories
-            val categoryPages = categories.chunked(CATEGORY_COUNT_PER_PAGE).map { CategoryPage(it) }
-            (viewPager.adapter as CategoryPagerAdapter).setData(categoryPages)
+            (recyclerView.adapter as CategoryListAdapter).submitList(item.categories)
         }
     }
 

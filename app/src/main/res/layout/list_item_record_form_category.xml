@@ -35,8 +35,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/iv_list_item_record_form_category_icon" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vp_list_item_record_form_category"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_list_item_record_form_category"
         android:layout_width="0dp"
         android:layout_height="160dp"
         android:layout_marginTop="16dp"
