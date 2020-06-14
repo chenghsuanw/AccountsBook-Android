@@ -107,7 +107,7 @@ class ReceiptAdapter(
         fun bindView(item: ReceiptItem.Type) {
             typeChipGroup.check(
                 if (item.isIncome == true) R.id.type_income
-                else R.id.chip_group_list_item_receipt_type
+                else R.id.type_outcome
             )
         }
     }
